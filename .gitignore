@@ -1,0 +1,8 @@
+composer.lock
+/vendor/
+/.idea/
+/build/
+.phpunit.result.cache
+
+# macOS
+.DS_Store
