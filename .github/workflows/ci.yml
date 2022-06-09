@@ -1,4 +1,4 @@
-name: Cluster API
+name: CSR generator
 
 on: [push, pull_request]
 
