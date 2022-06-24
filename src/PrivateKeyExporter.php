@@ -34,7 +34,7 @@ class PrivateKeyExporter implements Stringable
         return $this;
     }
 
-    public function export(): string|false
+    public function export(): ?string
     {
         $privateKeyContent = false;
 
@@ -44,15 +44,14 @@ class PrivateKeyExporter implements Stringable
             $this->passPhrase,
             $this->additionalOptions
         );
-        if (!$result) {
-            return false;
-        }
 
-        return $privateKeyContent;
+        return $result
+            ? $privateKeyContent
+            : null;
     }
 
     public function __toString(): string
     {
-        return $this->export();
+        return $this->export() ?? '';
     }
 }

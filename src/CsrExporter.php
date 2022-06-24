@@ -14,20 +14,19 @@ class CsrExporter implements Stringable
         $this->certificateSigningRequest = $certificateSigningRequest;
     }
 
-    public function export(): string|false
+    public function export(): ?string
     {
         $certificateSigningRequestContent = false;
 
         $result = openssl_csr_export($this->certificateSigningRequest, $certificateSigningRequestContent);
-        if (!$result) {
-            return false;
-        }
 
-        return $certificateSigningRequestContent;
+        return $result
+            ? $certificateSigningRequestContent
+            : null;
     }
 
     public function __toString(): string
     {
-        return $this->export();
+        return $this->export() ?? '';
     }
 }
