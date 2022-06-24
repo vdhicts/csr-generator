@@ -3,7 +3,7 @@ name: CSR generator
 on: [push, pull_request]
 
 jobs:
-    cluster-api-tests:
+    csr-generator-tests:
         runs-on: ubuntu-latest
         strategy:
             matrix:
