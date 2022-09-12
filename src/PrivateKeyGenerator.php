@@ -45,14 +45,12 @@ class PrivateKeyGenerator
 
     public function generate(): ?PrivateKey
     {
-        $privateKey = openssl_pkey_new(array_merge(
-            [
-                'digest_alg' => $this->digestAlg,
-                'private_key_bits' => $this->privateKeyBits,
-                'private_key_type' => $this->privateKeyType,
-            ],
-            $this->additionalOptions
-        ));
+        $privateKey = openssl_pkey_new([
+            'digest_alg' => $this->digestAlg,
+            'private_key_bits' => $this->privateKeyBits,
+            'private_key_type' => $this->privateKeyType,
+            ...$this->additionalOptions,
+        ]);
         if (!$privateKey) {
             return null;
         }

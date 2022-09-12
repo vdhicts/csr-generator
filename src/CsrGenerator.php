@@ -67,7 +67,7 @@ class CsrGenerator
         $csr = openssl_csr_new(
             $this->subjectFields->toArray(),
             $this->privateKey->openSSLAsymmetricKey,
-            array_merge($options, $this->additionalOptions)
+            [...$options, ...$this->additionalOptions]
         );
 
         if ($configContentFile) {
