@@ -6,40 +6,24 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class SubjectFields implements Arrayable
 {
-    private string $commonName;
-    private string $emailAddress;
-    private string $countryName;
-    private string $stateOrProvinceName;
-    private string $localityName;
-    private string $organizationName;
-    private string $organizationalUnit;
-    /** @var string[] */
-    private array $alternativeSubjects;
-
     /**
      * @param string[] $alternativeSubjects
      */
     public function __construct(
-        string $commonName,
-        string $emailAddress,
-        string $countryName,
-        string $stateOrProvinceName,
-        string $localityName,
-        string $organizationName,
-        string $organizationalUnit = '',
-        array $alternativeSubjects = []
+        public string $commonName,
+        public string $emailAddress,
+        public string $countryName,
+        public string $stateOrProvinceName,
+        public string $localityName,
+        public string $organizationName,
+        public string $organizationalUnit = '',
+        public array $alternativeSubjects = []
     ) {
-        $this->countryName = $countryName;
-        $this->stateOrProvinceName = $stateOrProvinceName;
-        $this->localityName = $localityName;
-        $this->organizationName = $organizationName;
-        $this->organizationalUnit = $organizationalUnit;
-        $this->commonName = $commonName;
-        $this->emailAddress = $emailAddress;
-        $this->alternativeSubjects = $alternativeSubjects;
     }
 
     /**
+     * Returns the alternative subjects and make sure the common name isn't part of the alternative subjects.
+     *
      * @return string[]
      */
     public function getAlternativeSubjects(): array
@@ -51,19 +35,14 @@ class SubjectFields implements Arrayable
 
     public function toArray(): array
     {
-        $data = [
+        return array_filter([
             'countryName' => $this->countryName,
             'stateOrProvinceName' => $this->stateOrProvinceName,
             'localityName' => $this->localityName,
             'organizationName' => $this->organizationName,
             'commonName' => $this->commonName,
             'emailAddress' => $this->emailAddress,
-        ];
-
-        if (!empty($this->organizationalUnit)) {
-            $data['organizationalUnitName'] = $this->organizationalUnit;
-        }
-
-        return $data;
+            'organizationalUnitName' => $this->organizationalUnit,
+        ]);
     }
 }

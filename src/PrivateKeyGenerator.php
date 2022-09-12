@@ -3,7 +3,6 @@
 namespace Vdhicts\CsrGenerator;
 
 use Illuminate\Support\Facades\Config;
-use OpenSSLAsymmetricKey;
 
 class PrivateKeyGenerator
 {
@@ -44,9 +43,9 @@ class PrivateKeyGenerator
         return $this;
     }
 
-    public function generate(): OpenSSLAsymmetricKey|false
+    public function generate(): ?PrivateKey
     {
-        return openssl_pkey_new(array_merge(
+        $privateKey = openssl_pkey_new(array_merge(
             [
                 'digest_alg' => $this->digestAlg,
                 'private_key_bits' => $this->privateKeyBits,
@@ -54,5 +53,10 @@ class PrivateKeyGenerator
             ],
             $this->additionalOptions
         ));
+        if (!$privateKey) {
+            return null;
+        }
+
+        return new PrivateKey($privateKey);
     }
 }

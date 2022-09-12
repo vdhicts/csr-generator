@@ -5,16 +5,14 @@ namespace Vdhicts\CsrGenerator;
 use OpenSSLAsymmetricKey;
 use Stringable;
 
-class PrivateKeyExporter implements Stringable
+class PrivateKey implements Stringable
 {
-    private OpenSSLAsymmetricKey $privateKey;
     private string $passPhrase = '';
     /** @var array<string, string> */
     private array $additionalOptions = [];
 
-    public function __construct(OpenSSLAsymmetricKey $privateKey)
+    public function __construct(public OpenSSLAsymmetricKey $openSSLAsymmetricKey)
     {
-        $this->privateKey = $privateKey;
     }
 
     public function setPassPhrase(string $passPhrase = ''): self
@@ -39,7 +37,7 @@ class PrivateKeyExporter implements Stringable
         $privateKeyContent = false;
 
         $result = openssl_pkey_export(
-            $this->privateKey,
+            $this->openSSLAsymmetricKey,
             $privateKeyContent,
             $this->passPhrase,
             $this->additionalOptions

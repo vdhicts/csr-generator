@@ -5,20 +5,17 @@ namespace Vdhicts\CsrGenerator;
 use OpenSSLCertificateSigningRequest;
 use Stringable;
 
-class CsrExporter implements Stringable
+class Csr implements Stringable
 {
-    private OpenSSLCertificateSigningRequest $certificateSigningRequest;
-
-    public function __construct(OpenSSLCertificateSigningRequest $certificateSigningRequest)
+    public function __construct(public readonly OpenSSLCertificateSigningRequest $openSSLCertificateSigningRequest)
     {
-        $this->certificateSigningRequest = $certificateSigningRequest;
     }
 
     public function export(): ?string
     {
         $certificateSigningRequestContent = false;
 
-        $result = openssl_csr_export($this->certificateSigningRequest, $certificateSigningRequestContent);
+        $result = openssl_csr_export($this->openSSLCertificateSigningRequest, $certificateSigningRequestContent);
 
         return $result
             ? $certificateSigningRequestContent

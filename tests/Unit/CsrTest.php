@@ -3,7 +3,7 @@
 namespace Vdhicts\CsrGenerator\Tests\Unit;
 
 use OpenSSLCertificateSigningRequest;
-use Vdhicts\CsrGenerator\CsrExporter;
+use Vdhicts\CsrGenerator\Csr;
 use Vdhicts\CsrGenerator\CsrGenerator;
 use Vdhicts\CsrGenerator\PrivateKeyGenerator;
 use Vdhicts\CsrGenerator\SubjectFields;
@@ -34,7 +34,8 @@ class CsrTest extends TestCase
             ->setAdditionalOptions($this->additionalOptions)
             ->generate();
 
-        $this->assertInstanceOf(OpenSSLCertificateSigningRequest::class, $csr);
+        $this->assertInstanceOf(Csr::class, $csr);
+        $this->assertInstanceOf(OpenSSLCertificateSigningRequest::class, $csr->openSSLCertificateSigningRequest);
     }
 
     public function testExportPrivateKey(): void
@@ -60,13 +61,11 @@ class CsrTest extends TestCase
             ->setAdditionalOptions($this->additionalOptions)
             ->generate();
 
-        $csrExporter = new CsrExporter($csr);
-
-        $csrContent = $csrExporter->export();
+        $csrContent = $csr->export();
         $this->assertIsString($csrContent);
         $this->assertStringStartsWith('-----BEGIN CERTIFICATE REQUEST-----', $csrContent);
 
-        $csrContent = (string)$csrExporter;
+        $csrContent = (string)$csr;
         $this->assertIsString($csrContent);
         $this->assertStringStartsWith('-----BEGIN CERTIFICATE REQUEST-----', $csrContent);
     }

@@ -17,7 +17,7 @@ class SubjectFieldsTest extends TestCase
         $localityName = 'Den Haag';
         $organizationName = 'Example';
         $organizationalUnit = 'DevOps';
-        $alternativeNames = ['www.example.com'];
+        $alternativeNames = ['www.example.com', 'example.com'];
 
         $subjectFields = new SubjectFields(
             $commonName,
@@ -42,5 +42,6 @@ class SubjectFieldsTest extends TestCase
 
         $this->assertIsArray($subjectFields->getAlternativeSubjects());
         $this->assertTrue(in_array('www.example.com', $subjectFields->getAlternativeSubjects()));
+        $this->assertFalse(in_array('example.com', $subjectFields->getAlternativeSubjects()));
     }
 }

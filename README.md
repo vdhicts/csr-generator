@@ -5,7 +5,7 @@ not easily usable. This package aims to make the procedure easier.
 
 ## Requirements
 
-This Laravel package requires PHP 8.0+. You will need the openssl extension as that's required for the `openssl_*` 
+This Laravel package requires PHP 8.1 or higher. You will need the openssl extension as that's required for the `openssl_*` 
 php functions used by this package.
 
 ## Installation
@@ -26,8 +26,6 @@ All steps can be performed individually to suite all your needs.
 
 ```php
 $privateKey = (new PrivateKeyGenerator())->generate();
-$privateKeyContent = (new PrivateKeyExporter($privateKey))->export();
-
 $subjectFields = new SubjectFields(
     'example.com',
     'security@example.com',
@@ -39,14 +37,13 @@ $subjectFields = new SubjectFields(
     ['www.example.com']
 );
 $csr = (new CsrGenerator($subjectFields, $privateKey))->generate();
-$csrContent = (new CsrExporter($csr))->export();
+$csrContent = $csr->export();
 ```
 
 ### Generate private key
 
 The private key can be generated with the `PrivateKeyGenerator`. It's possible to manually determine the key bits and 
-type. Additional options can be provided too. The generator will return false when failed or an instance of 
-`OpenSSLAsymmetricKey`.
+type. Additional options can be provided too. The generator will return null when failed or an instance of `PrivateKey`.
 
 ```php
 $privateKey = (new PrivateKeyGenerator())
@@ -56,12 +53,15 @@ $privateKey = (new PrivateKeyGenerator())
     ->generate();
 ```
 
+You can access the `OpenSSLAsymmetricKey` as property.
+
 ### Export private key as string
 
-To convert the private key to a string, use the `PrivateKeyExporter`:
+To convert the private key to a string, use the `export` method on the `PrivateKey` object or cast the object to a 
+string:
 
 ```php
-$privateKeyContent = (new PrivateKeyExporter())
+$privateKeyContent = $privateKey
     ->setPassPhrase('test-1234!')
     ->setAdditionalOptions(['config' => 'path-to-your-config-file'])
     ->export();
@@ -69,8 +69,8 @@ $privateKeyContent = (new PrivateKeyExporter())
 
 ### Generate CSR
 
-To generate the CSR, generate the private key and create the subject fields first. The generator will return false when 
-failed or an instance of `OpenSSLCertificateSigningRequest`.
+To generate the CSR, generate the private key and create the subject fields first. The generator will return null when 
+failed or an instance of `Csr`.
 
 ```php
 $subjectFields = new SubjectFields(
@@ -87,6 +87,8 @@ $csr = (new CsrGenerator($subjectFields, $privateKey))
     ->setAdditionalOptions(['config' => 'path-to-your-config-file'])
     ->generate();
 ```
+
+You can access the `OpenSSLCertificateSigningRequest` as property.
 
 #### Subject alternative names & your own config
 
@@ -123,10 +125,10 @@ php artisan vendor:publish --provider="Vdhicts\CsrGenerator\CsrGeneratorServiceP
 
 ### Export CSR as string
 
-To convert the CSR to a string, use the `CsrExporter`:
+To convert the CSR to a string, use the `export` method on the `Csr` object or cast the object to a string:
 
 ```php
-$csrContent = (new CsrExporter($csr))->export();
+$csrContent = $csr->export();
 ```
 
 ### Custom configuration

@@ -4,18 +4,16 @@ namespace Vdhicts\CsrGenerator;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use OpenSSLAsymmetricKey;
-use OpenSSLCertificateSigningRequest;
 
 class CsrGenerator
 {
     private string $digestAlg;
     private SubjectFields $subjectFields;
-    private OpenSSLAsymmetricKey $privateKey;
+    private PrivateKey $privateKey;
     /** @var array<string, string> */
     private array $additionalOptions = [];
 
-    public function __construct(SubjectFields $subjectFields, OpenSSLAsymmetricKey $privateKey)
+    public function __construct(SubjectFields $subjectFields, PrivateKey $privateKey)
     {
         $this->digestAlg = Config::get('csr-generator.digest_alg', 'sha256');
 
@@ -50,7 +48,7 @@ class CsrGenerator
     /**
      * Generate the certificate signing request.
      */
-    public function generate(): OpenSSLCertificateSigningRequest|false
+    public function generate(): ?Csr
     {
         $options = [
             'digest_alg' => $this->digestAlg,
@@ -68,7 +66,7 @@ class CsrGenerator
 
         $csr = openssl_csr_new(
             $this->subjectFields->toArray(),
-            $this->privateKey,
+            $this->privateKey->openSSLAsymmetricKey,
             array_merge($options, $this->additionalOptions)
         );
 
@@ -76,6 +74,8 @@ class CsrGenerator
             File::delete($configContentFile);
         }
 
-        return $csr;
+        return $csr
+            ? new Csr($csr)
+            : null;
     }
 }

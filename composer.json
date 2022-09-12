@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-openssl": "*",
         "laravel/framework": "^9.0",
         "spatie/laravel-package-tools": "^1.11"
