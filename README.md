@@ -25,7 +25,10 @@ This package is an easy-to-use wrapper around the PHP functions.
 All steps can be performed individually to suite all your needs.
 
 ```php
+// Generate the private key
 $privateKey = (new PrivateKeyGenerator())->generate();
+
+// Collect the subject fields
 $subjectFields = new SubjectFields(
     'example.com',
     'security@example.com',
@@ -36,6 +39,8 @@ $subjectFields = new SubjectFields(
     'DevOps',
     ['www.example.com']
 );
+
+// Generate the csr
 $csr = (new CsrGenerator($subjectFields, $privateKey))->generate();
 $csrContent = $csr->export();
 ```
@@ -108,7 +113,8 @@ $subjectFields = new SubjectFields(
     'DevOps' // so not providing the subject alternative names here
 );
 
-// TODO: Create your own config file with the subject alternative names
+// Create your own config file with the subject alternative names
+..
 
 // Provide your config file to the generator
 $csr = (new CsrGenerator($subjectFields, $privateKey))
