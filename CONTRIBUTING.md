@@ -20,13 +20,12 @@ When requesting or submitting features/changes, consider whether it benefits the
 benefit from the feature and/or change.
 
 It's the task of the maintainer to make sure that all additions or changes to the project benefit its goal. That could
-mean your addition or change won't be merged. To prevent you wasting your valuable time on such a thing, feel free to
-open an issue or discussing in front.
+mean your addition or change won't be merged. To prevent you from wasting your valuable time on such a thing, feel free 
+to open an issue or discussing in front.
 
 ## Procedure
 
 Before creating an issue:
-
 - Try to replicate the problem with the smallest usage possible.
 - When creating a feature request, make sure the feature isn't present already.
 - Make sure there's not yet another issue or a pull request available about the same feature/change.
@@ -51,8 +50,8 @@ update their implementation too. For that reason, try to make as few as possible
 The versioning follows [SemVer](http://semver.org/). In short:
 
 - Increase the MAJOR version when you make incompatible API changes,
-- Increase the MINOR version when you add functionality in a backwards compatible manner,
-- Increase PATCH version when you make backwards compatible bug fixes.
+- Increase the MINOR version when you add functionality in a backward compatible manner,
+- Increase PATCH version when you make backward-compatible bug fixes.
 
 ## Requirements
 
@@ -61,5 +60,5 @@ There are some requirements set by the maintainer, which are listed below.
 - Please apply the [PSR-12 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-coding-style-guide.md).
 - Keep track of changes and document them in the [CHANGELOG.md](CHANGELOG.md).
 - Update the [readme.md](README.md) when required.
-- Add tests when possible.
+- Add tests whenever possible.
 - Please create one pull request per feature/bug.
