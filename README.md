@@ -15,7 +15,7 @@ This package can be used in any Laravel project.
 
 You can install the package via composer:
 
-`composer require vdhicts/csr-generator`
+`composer require vdhicts/laravel-csr-generator`
 
 ## Usage
 
