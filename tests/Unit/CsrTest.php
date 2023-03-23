@@ -65,7 +65,7 @@ class CsrTest extends TestCase
         $this->assertIsString($csrContent);
         $this->assertStringStartsWith('-----BEGIN CERTIFICATE REQUEST-----', $csrContent);
 
-        $csrContent = (string)$csr;
+        $csrContent = (string) $csr;
         $this->assertIsString($csrContent);
         $this->assertStringStartsWith('-----BEGIN CERTIFICATE REQUEST-----', $csrContent);
     }

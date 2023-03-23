@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Config;
 class PrivateKeyGenerator
 {
     private string $digestAlg;
+
     private int $privateKeyBits;
+
     private int $privateKeyType;
+
     /** @var array<string, string> */
     private array $additionalOptions = [];
 
@@ -51,7 +54,7 @@ class PrivateKeyGenerator
             'private_key_type' => $this->privateKeyType,
             ...$this->additionalOptions,
         ]);
-        if (!$privateKey) {
+        if (! $privateKey) {
             return null;
         }
 

@@ -8,8 +8,11 @@ use Illuminate\Support\Facades\File;
 class CsrGenerator
 {
     private string $digestAlg;
+
     private SubjectFields $subjectFields;
+
     private PrivateKey $privateKey;
+
     /** @var array<string, string> */
     private array $additionalOptions = [];
 

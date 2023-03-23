@@ -8,6 +8,7 @@ use Stringable;
 class PrivateKey implements Stringable
 {
     private string $passPhrase = '';
+
     /** @var array<string, string> */
     private array $additionalOptions = [];
 
