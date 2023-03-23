@@ -32,7 +32,8 @@ class SubjectFieldsTest extends TestCase
 
         $this->assertInstanceOf(SubjectFields::class, $subjectFields);
         $this->assertIsArray($subjectFields->toArray());
-        $this->assertArrayHasKey('commonName', $subjectFields->toArray());$this->assertSame($commonName, Arr::get($subjectFields->toArray(), 'commonName'));
+        $this->assertArrayHasKey('commonName', $subjectFields->toArray());
+        $this->assertSame($commonName, Arr::get($subjectFields->toArray(), 'commonName'));
         $this->assertSame($emailAddress, Arr::get($subjectFields->toArray(), 'emailAddress'));
         $this->assertSame($countryName, Arr::get($subjectFields->toArray(), 'countryName'));
         $this->assertSame($stateOrProvinceName, Arr::get($subjectFields->toArray(), 'stateOrProvinceName'));

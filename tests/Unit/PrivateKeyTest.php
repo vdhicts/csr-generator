@@ -37,7 +37,7 @@ class PrivateKeyTest extends TestCase
         $this->assertIsString($privateKeyContent);
         $this->assertStringStartsWith('-----BEGIN ENCRYPTED PRIVATE KEY-----', $privateKeyContent);
 
-        $privateKeyContent = (string)$privateKey;
+        $privateKeyContent = (string) $privateKey;
         $this->assertIsString($privateKeyContent);
         $this->assertStringStartsWith('-----BEGIN ENCRYPTED PRIVATE KEY-----', $privateKeyContent);
     }
