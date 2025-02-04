@@ -11,7 +11,7 @@ use Vdhicts\CsrGenerator\Tests\TestCase;
 
 class CsrTest extends TestCase
 {
-    public function testGeneratePrivateKey(): void
+    public function test_generate_private_key(): void
     {
         $privateKey = (new PrivateKeyGenerator())
             ->setAdditionalOptions($this->additionalOptions)
@@ -38,7 +38,7 @@ class CsrTest extends TestCase
         $this->assertInstanceOf(OpenSSLCertificateSigningRequest::class, $csr->openSSLCertificateSigningRequest);
     }
 
-    public function testExportPrivateKey(): void
+    public function test_export_private_key(): void
     {
         $privateKey = (new PrivateKeyGenerator())
             ->setAdditionalOptions($this->additionalOptions)

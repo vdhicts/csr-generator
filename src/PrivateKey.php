@@ -12,9 +12,7 @@ class PrivateKey implements Stringable
     /** @var array<string, string> */
     private array $additionalOptions = [];
 
-    public function __construct(public OpenSSLAsymmetricKey $openSSLAsymmetricKey)
-    {
-    }
+    public function __construct(public OpenSSLAsymmetricKey $openSSLAsymmetricKey) {}
 
     public function setPassPhrase(?string $passPhrase = null): self
     {

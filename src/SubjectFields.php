@@ -18,8 +18,7 @@ class SubjectFields implements Arrayable
         public string $organizationName,
         public string $organizationalUnit = '',
         public array $alternativeSubjects = []
-    ) {
-    }
+    ) {}
 
     /**
      * Returns the alternative subjects and make sure the common name isn't part of the alternative subjects.
