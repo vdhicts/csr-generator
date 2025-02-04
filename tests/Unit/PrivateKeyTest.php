@@ -23,7 +23,7 @@ class PrivateKeyTest extends TestCase
         $this->assertInstanceOf(OpenSSLAsymmetricKey::class, $privateKey->openSSLAsymmetricKey);
     }
 
-    public function testExportPrivateKey(): void
+    public function testExportPrivateKeyWithPassphrase(): void
     {
         $privateKey = (new PrivateKeyGenerator())
             ->setAdditionalOptions($this->additionalOptions)
@@ -40,5 +40,22 @@ class PrivateKeyTest extends TestCase
         $privateKeyContent = (string) $privateKey;
         $this->assertIsString($privateKeyContent);
         $this->assertStringStartsWith('-----BEGIN ENCRYPTED PRIVATE KEY-----', $privateKeyContent);
+    }
+
+    public function testExportPrivateKeyWithoutPassphrase(): void
+    {
+        $privateKey = (new PrivateKeyGenerator())
+            ->setAdditionalOptions($this->additionalOptions)
+            ->generate();
+
+        $privateKey->setAdditionalOptions($this->additionalOptions);
+
+        $privateKeyContent = $privateKey->export();
+        $this->assertIsString($privateKeyContent);
+        $this->assertStringStartsWith('-----BEGIN PRIVATE KEY-----', $privateKeyContent);
+
+        $privateKeyContent = (string) $privateKey;
+        $this->assertIsString($privateKeyContent);
+        $this->assertStringStartsWith('-----BEGIN PRIVATE KEY-----', $privateKeyContent);
     }
 }

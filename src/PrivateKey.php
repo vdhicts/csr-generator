@@ -7,7 +7,7 @@ use Stringable;
 
 class PrivateKey implements Stringable
 {
-    private string $passPhrase = '';
+    private ?string $passPhrase = null;
 
     /** @var array<string, string> */
     private array $additionalOptions = [];
@@ -16,7 +16,7 @@ class PrivateKey implements Stringable
     {
     }
 
-    public function setPassPhrase(string $passPhrase = ''): self
+    public function setPassPhrase(?string $passPhrase = null): self
     {
         $this->passPhrase = $passPhrase;
 
