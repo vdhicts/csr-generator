@@ -7,9 +7,7 @@ use Stringable;
 
 class Csr implements Stringable
 {
-    public function __construct(public readonly OpenSSLCertificateSigningRequest $openSSLCertificateSigningRequest)
-    {
-    }
+    public function __construct(public readonly OpenSSLCertificateSigningRequest $openSSLCertificateSigningRequest) {}
 
     public function export(): ?string
     {

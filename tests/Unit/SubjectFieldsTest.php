@@ -8,7 +8,7 @@ use Vdhicts\CsrGenerator\Tests\TestCase;
 
 class SubjectFieldsTest extends TestCase
 {
-    public function testSubjectFields(): void
+    public function test_subject_fields(): void
     {
         $commonName = 'example.com';
         $emailAddress = 'security@example.com';

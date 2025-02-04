@@ -66,12 +66,25 @@ You can access the `OpenSSLAsymmetricKey` as a property.
 To convert the private key to a string, use the `export` method on the `PrivateKey` object or cast the object to a 
 string:
 
+#### Encrypted key
+
 ```php
 $privateKeyContent = $privateKey
     ->setPassPhrase('test-1234!')
-    ->setAdditionalOptions(['config' => 'path-to-your-config-file'])
+    //->setAdditionalOptions(['config' => 'path-to-your-config-file'])
     ->export();
 ```
+
+#### Unencrypted key
+
+```php
+$privateKeyContent = $privateKey
+    ->setPassPhrase(null)
+    //->setAdditionalOptions(['config' => 'path-to-your-config-file'])
+    ->export();
+```
+
+When you don't set the passphrase or set it to `null`, the key won't be encrypted.
 
 ### Generate CSR
 

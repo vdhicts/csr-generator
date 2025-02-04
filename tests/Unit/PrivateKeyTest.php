@@ -9,7 +9,7 @@ use Vdhicts\CsrGenerator\Tests\TestCase;
 
 class PrivateKeyTest extends TestCase
 {
-    public function testGeneratePrivateKey(): void
+    public function test_generate_private_key(): void
     {
         $generator = new PrivateKeyGenerator();
 
@@ -23,7 +23,7 @@ class PrivateKeyTest extends TestCase
         $this->assertInstanceOf(OpenSSLAsymmetricKey::class, $privateKey->openSSLAsymmetricKey);
     }
 
-    public function testExportPrivateKey(): void
+    public function test_export_private_key_with_passphrase(): void
     {
         $privateKey = (new PrivateKeyGenerator())
             ->setAdditionalOptions($this->additionalOptions)
@@ -40,5 +40,22 @@ class PrivateKeyTest extends TestCase
         $privateKeyContent = (string) $privateKey;
         $this->assertIsString($privateKeyContent);
         $this->assertStringStartsWith('-----BEGIN ENCRYPTED PRIVATE KEY-----', $privateKeyContent);
+    }
+
+    public function test_export_private_key_without_passphrase(): void
+    {
+        $privateKey = (new PrivateKeyGenerator())
+            ->setAdditionalOptions($this->additionalOptions)
+            ->generate();
+
+        $privateKey->setAdditionalOptions($this->additionalOptions);
+
+        $privateKeyContent = $privateKey->export();
+        $this->assertIsString($privateKeyContent);
+        $this->assertStringStartsWith('-----BEGIN PRIVATE KEY-----', $privateKeyContent);
+
+        $privateKeyContent = (string) $privateKey;
+        $this->assertIsString($privateKeyContent);
+        $this->assertStringStartsWith('-----BEGIN PRIVATE KEY-----', $privateKeyContent);
     }
 }

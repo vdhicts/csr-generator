@@ -7,16 +7,14 @@ use Stringable;
 
 class PrivateKey implements Stringable
 {
-    private string $passPhrase = '';
+    private ?string $passPhrase = null;
 
     /** @var array<string, string> */
     private array $additionalOptions = [];
 
-    public function __construct(public OpenSSLAsymmetricKey $openSSLAsymmetricKey)
-    {
-    }
+    public function __construct(public OpenSSLAsymmetricKey $openSSLAsymmetricKey) {}
 
-    public function setPassPhrase(string $passPhrase = ''): self
+    public function setPassPhrase(?string $passPhrase = null): self
     {
         $this->passPhrase = $passPhrase;
 
