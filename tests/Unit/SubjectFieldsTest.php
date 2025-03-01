@@ -17,7 +17,7 @@ class SubjectFieldsTest extends TestCase
         $localityName = 'Den Haag';
         $organizationName = 'Example';
         $organizationalUnit = 'DevOps';
-        $alternativeNames = ['www.example.com', 'example.com'];
+        $alternativeNames = ['www.example.com', 'hello.example.com'];
 
         $subjectFields = new SubjectFields(
             $commonName,
@@ -41,8 +41,12 @@ class SubjectFieldsTest extends TestCase
         $this->assertSame($organizationName, Arr::get($subjectFields->toArray(), 'organizationName'));
         $this->assertSame($organizationalUnit, Arr::get($subjectFields->toArray(), 'organizationalUnitName'));
 
-        $this->assertIsArray($subjectFields->getAlternativeSubjects());
-        $this->assertTrue(in_array('www.example.com', $subjectFields->getAlternativeSubjects()));
-        $this->assertFalse(in_array('example.com', $subjectFields->getAlternativeSubjects()));
+        $this->assertContains('www.example.com', $subjectFields->alternativeSubjects);
+        $this->assertContains('hello.example.com', $subjectFields->alternativeSubjects);
+        $this->assertNotContains('example.com', $subjectFields->alternativeSubjects);
+
+        $this->assertContains('example.com', $subjectFields->getSubjects());
+        $this->assertContains('www.example.com', $subjectFields->getSubjects());
+        $this->assertContains('hello.example.com', $subjectFields->getSubjects());
     }
 }
