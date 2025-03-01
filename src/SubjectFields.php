@@ -21,15 +21,13 @@ class SubjectFields implements Arrayable
     ) {}
 
     /**
-     * Returns the alternative subjects and make sure the common name isn't part of the alternative subjects.
+     * Returns the list of all checked subjects, which means the common name and alternative subjects combined.
      *
      * @return string[]
      */
-    public function getAlternativeSubjects(): array
+    public function getSubjects(): array
     {
-        return array_filter($this->alternativeSubjects, function ($alternativeSubject) {
-            return $alternativeSubject !== $this->commonName;
-        });
+        return array_unique(array_merge([$this->commonName], $this->alternativeSubjects));
     }
 
     public function toArray(): array

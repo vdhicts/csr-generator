@@ -36,14 +36,14 @@ class CsrGenerator
 
     private function hasAlternativeSubjects(): bool
     {
-        return count($this->subjectFields->getAlternativeSubjects()) !== 0;
+        return count($this->subjectFields->alternativeSubjects) !== 0;
     }
 
     private function generateConfigFile(): string
     {
         $subjectAlternativeNames = $this
             ->subjectFields
-            ->getAlternativeSubjects();
+            ->alternativeSubjects;
 
         return view('csr-generator::csr_config', ['subjectAlternativeNames' => $subjectAlternativeNames])->render();
     }
